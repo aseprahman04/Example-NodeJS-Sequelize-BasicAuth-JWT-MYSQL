@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
                         }
                     })
                     if (skills) {
-                       await user.addSkill(skills, { proficiency: 'Intermediate' });
+                        await user.addSkill(skills, { proficiency: 'Intermediate' });
                         res.status(200).json({
                             message: 'create success',
                         })
@@ -68,6 +68,7 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
     try {
         const { body } = req;
+        console.log(req)
 
         const signInSchema = Joi.object().keys({
             username: Joi.string().required(),

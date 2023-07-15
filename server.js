@@ -3,12 +3,9 @@ const cors = require("cors");
 const db = require("./app/models");
 const app = express();
 var bcrypt = require("bcryptjs");
-require("./app/routes/auth.routes")(app);
-require("./app/routes/skills.routes")(app);
-require("./app/routes/activities.routes")(app);
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
+
+
+
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 const Skills = db.skills;
@@ -58,7 +55,8 @@ db.sequelize.sync({ force: true }).then(async () => {
     console.log('Drop and Resync Db');
     await dump();
 });
-app.use(cors(corsOptions));
+
+app.use(cors({ origin: true, credentials: true }));
 
 
 
@@ -74,6 +72,9 @@ app.use(function (req, res, next) {
     );
     next();
 });
+require("./app/routes/auth.routes")(app);
+require("./app/routes/skills.routes")(app);
+require("./app/routes/activities.routes")(app);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 // simple route
 app.get("/", (req, res) => {
