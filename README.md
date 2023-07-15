@@ -29,5 +29,5 @@ http://localhost:8080/docs
 
 ## Unit test
 ```bash
-npm run dev
+npm run test
 ```
